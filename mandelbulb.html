@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Frakal</title>
+    <style>
+        body { background: black; display: flex; justify-content: center; align-items: center; margin: 0; min-height: 100vh; overflow: hidden; }
+        .panel { display: flex; flex-direction: row-reverse; color: white }
+        .settings { margin-left: 20px; display: flex; flex-direction: column }
+        .field { margin-top: 20px; }
+        input { border: white; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <canvas id="myCanvas" class="viewport" width=500 height=500></canvas>
+        
+        <div class="settings">
+            <h1>Real-time 3d fractal in Javascript</h1>
+            <div class="field">
+                <div>Instruction</div>
+                <div>Click on picture and move mouse around<br>
+                    A/S/D/W/E/C keys for change view poin position <br>
+                    Push ESC to stop move and unlock mouse
+                </div>
+            </div>
+            <div class="field">
+                <div>Calculate Light</div>
+                <div><input type="checkbox" onclick="settingsSetLight(event)"></div>                
+            </div>            
+            <div class="field">
+                <div>
+                    Level of Details (and camera speed) <br>
+                    Mouse whell or +/- keys
+
+                </div>
+                <div>                    
+                    <input id="rayMinDist" type="text" value="3" disabled >
+                </div>
+            </div>
+            <div class="field">
+                    <div>Info</div>
+                    <div>                    
+                        <a href="http://blog.hvidtfeldts.net/index.php/2011/06/distance-estimated-3d-fractals-part-i/" class="c">Fraactals 3d/ray-marching</a>                        
+                    </div>
+                    <div><a href="http://iquilezles.org/www/articles/distfunctions/distfunctions.htm">Distance functions</a></div>
+                    <div><a href="https://github.com/gpujs/gpu.js">GPU JS</a></div>
+                    <div><a href="https://github.com/kamil-kielczewski/fractals">This project</a></div>
+                </div>
+            
+        </div>
+    </div>
+
+    
+       
+    <script src="https://cdn.rawgit.com/gpujs/gpu.js/87ccce51df9c7162f0f91fde20992268425e75fd/bin/gpu.js"></script>
+
+    <script>
+        // ---------------------------------------------------- 
+        //
+        // Init params
+        //
+        // ---------------------------------------------------- 
+        class RaytracerParams {
+            constructor() {
+                this.params = {
+                    ray: {rayMaxSteps:512, rayMinDist:0.001, calcLight: 0 },
+                    eye:    { x:-1, y:0, z:0 },
+                    light:    { x:-10, y:10, z:10 },
+                    target:    { x:0, y:0, z:1 },
+                    vertical: { x:0, y:1, z: 0}, // wektor pionu
+                    screen: { pxWidth: 0, pxHeight: 0 },     
+                    camera: { yaw: 0, pitch: 0, speed: 0.01, rotateSpeed: 0.01, fov: 180, locked: true }               
+                }
+            }
+
+            getParams() {
+                return this.params;
+            }
+
+            setScreenSize(width, height) {
+                this.params.screen.pxWidth = width;
+                this.params.screen.pxHeight = height;
+                return this;
+            }
+
+            // yaw = left/right, pitch = up/down
+            // [x,y,z] = position
+            moveCamera(yawDelta, pitchDelta, forwardBackward, leftRight, upDown) { 
+                let e = this.params.eye;
+                let t = this.params.target;
+                let v = this.params.vertical;
+                let d = this.sub(t,e);
+
+                this.params.camera.yaw += yawDelta * this.params.camera.rotateSpeed;
+                this.params.camera.pitch += pitchDelta * this.params.camera.rotateSpeed;
+                let yaw = this.params.camera.yaw;
+                let pitch = this.params.camera.pitch;
+
+                // rotate
+                t.x = e.x + Math.sin(yaw)*Math.cos(pitch);
+                t.z = e.z + Math.cos(yaw)*Math.cos(pitch);                
+                t.y = e.y + Math.sin(pitch); 
+                
+                // move forward                                
+                let fb = this.scale( this.params.camera.speed * forwardBackward , d);
+                this.addInPlace(e,fb);
+                this.addInPlace(t,fb);
+
+
+                // move left-right
+                let lr = this.scale( this.params.camera.speed * leftRight , this.norm(this.cross(v, d)));
+                this.addInPlace(e,lr);
+                this.addInPlace(t,lr);
+
+                // move up-down
+                let ud = this.scale( this.params.camera.speed * upDown, v);
+                this.addInPlace(e,ud);
+                this.addInPlace(t,ud);
+            }
+
+            calcRayBase() {
+                let E = this.params.eye;
+                let T = this.params.target;
+                let V = this.params.vertical;
+
+                let t = this.sub(T,E);
+                let tn = this.norm(t);
+
+                let b = this.cross(V, t);
+                let bn = this.norm(b);
+                let vn = this.cross(bn, tn);
+
+                let m = this.params.screen.pxHeight;
+                let k = this.params.screen.pxWidth;
+                let ar = m/k; // aspect ration
+                let hx = 2*Math.tan(this.params.camera.fov/4);                
+                let hy = hx*ar;
+
+                //let C = this.add(E, tn);
+                //let P11 = this.add( this.sub(C, this.scale((hx/2), bn)), this.scale(hy/2, vn))
+                let P11 = this.add( this.sub(tn, this.scale((hx/2), bn)), this.scale(hy/2, vn)) // chnage C to tn (tn= C-E)
+
+                let Bn = this.scale(hx/(k-1), bn);
+                let Vn = this.scale(-hy/(m-1), vn);
+
+                // Pij = P11 + (i-1)*bnp + (j-1)*vnp
+                return {E, P11, Bn, Vn};
+
+            }
+
+            cross(a,b) {
+                let x = a.y*b.z - a.z*b.y; 
+                let y = a.z*b.x - a.x*b.z; 
+                let z = a.x*b.y - a.y*b.x; 
+                return {x,y,z};
+            }
+
+            norm(a) {
+                let size = 1/Math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z);
+                return {x: a.x*size, y: a.y*size, z: a.z*size };
+            }
+
+            addInPlace(a,b) {
+                a.x += b.x;
+                a.y += b.y;
+                a.z += b.z;
+                return a;
+            }
+
+            add(a,b) {
+                return { 
+                    x: a.x + b.x,
+                    y: a.y + b.y,
+                    z: a.z + b.z
+                }
+                
+            }
+
+            sub(a,b) {
+                return this.add(a,this.scale(-1,b));
+            }
+
+            scale(s, a) {
+                return { x: a.x*s, y: a.y*s, z: a.z*s }
+            }
+        }
+
+       
+        // ---------------------------------------------------- 
+        //
+        // GPU & Canvas
+        //
+        // ---------------------------------------------------- 
+
+            // T - target
+            // E - eye
+            // vvn - wektor pionu kamery (normalny)
+            // fov - kont widzenia (stopnie)
+            // ar - aspect ratio
+            // k - liczba pixeli widht
+            // m - liczba pixeli height
+        let kernelMarchingRays = function(calcLight, rayMaxSteps, rayMinDist, Ex,Ey,Ez, P11x, P11y, P11z, Bnx, Bny, Bnz, Vnx,Vny,Vnz, Lx, Ly, Lz) 
+        {                            
+            let i = this.thread.x;
+            let j = this.thread.y;
+            let rx = P11x + Bnx*(i-1) + Vnx*(j-1);
+            let ry = P11y + Bny*(i-1) + Vny*(j-1);
+            let rz = P11z + Bnz*(i-1) + Vnz*(j-1);
+
+            let sr = 1/Math.sqrt(rx*rx + ry*ry + rz*rz);
+            let rnx = rx*sr;
+            let rny = ry*sr;
+            let rnz = rz*sr;
+
+            let totalDistance = 0.0;
+            let MaximumRaySteps= rayMaxSteps; //255;
+            let MinimumDistance= rayMinDist; //0.0001;                
+            let stepsVal = 0;
+            let ppx = 0;
+            let ppy = 0;
+            let ppz = 0;
+            let distance = 0;
+            let hit = 0;
+                        
+            for (let steps=0 ; steps < MaximumRaySteps; steps++) {
+                ppx = Ex + totalDistance * rnx;
+                ppy = Ey + totalDistance * rny;
+                ppz = Ez + totalDistance * rnz;
+
+                distance = distScene(ppx,ppy,ppz); // --- Distance estimator
+
+                totalDistance += distance;
+                if (distance < MinimumDistance) {
+                    stepsVal = steps;     
+                    hit=1;                   
+                    break                  
+                };
+                
+            }
+
+            let color_r = 0;
+            let color_g = 0;
+            let color_b = 0;
+
+            // --- calculate normals and light ---
+            if(calcLight==1) {
+                let eps = 0.00015;
+                let nx = distScene(ppx + eps, ppy, ppz) - distance; // - distScene(ppx - eps, ppy, ppz);
+                let ny = distScene(ppx, ppy + eps, ppz) - distance; // - distScene(ppx, ppy - eps, ppz);
+                let nz = distScene(ppx, ppy, ppz + eps) - distance; // - distScene(ppx, ppy, ppz - eps); 
+                let sn = 1/Math.sqrt(nx*nx + ny*ny + nz*nz);
+                nx = nx * sn;
+                ny = ny * sn;
+                nz = nz * sn;
+
+                let lx = Lx - ppx;
+                let ly = Lz - ppy;
+                let lz = Lz - ppz;
+                let sl = 1/Math.sqrt(lx*lx + ly*ly + lz*lz);
+                lx *= sl;
+                ly *= sl;
+                lz *= sl;
+
+                
+
+                let light = lx * nx + ly*ny + lz*nz;
+                
+                color_r = Math.max(light,0) + hit*0.2;
+                color_g = light;
+                color_b = light;
+
+            } else {
+                let trace= 2*stepsVal/MaximumRaySteps;
+                color_r = trace;
+                color_g = trace;
+                color_b = trace;
+            }
+
+            this.color(color_r, color_g, color_b ,1);
+        }
+
+        // x,y,z - point on ray (marching)
+        function distScene(x,y,z) 
+        {                       
+            let p = sdPlane(x,y,z, 0,1,0,1);            
+            let s = mandelbulb(x,y,z);                        
+            return Math.min(p,s);
+        }
+
+        function sdPlane(px,py,pz, nx,ny,nz,nw) 
+        {            
+            return px*nx + py*ny + pz*nz + nw;
+        }
+
+        function mandelbulb(px,py,pz) {
+            let zx=px; let zy=py; let zz=pz;        
+            let dr = 1;
+            let r = 0;
+            let iterations = 100;
+            let bailout = 2;
+            let power = 8;
+
+            for (let i = 0; i < iterations ; i++) {
+                r = Math.sqrt(zx*zx + zy*zy + zz*zz);
+                if (r>bailout) break;
+                
+                // convert to polar coordinates
+                let theta = Math.acos(zz/r);
+                let phi = Math.atan(zy,zx);
+                
+                dr =  Math.pow( r, power-1.0)*power*dr + 1.0;
+                
+                // scale and rotate the point
+                let zzr = Math.pow( r,power);
+                theta = theta*power;
+                phi = phi*power;
+                
+                // convert back to cartesian coordinates
+                zx = zzr * sin(theta) * cos(phi);
+                zy = zzr * sin(phi) * sin(theta);
+                zz = zzr * cos(theta);
+                zx+=px;
+                zy+=py;
+                zz+=pz;
+            }
+            return 0.5*Math.log(r)*r/dr;
+        }
+
+
+
+
+
+        // Pointer Locking enable 
+        // https://www.html5rocks.com/en/tutorials/pointerlock/intro/
+        // https://w3c.github.io/pointerlock/
+        // continue this tommorow...
+        function canvasOnClick_enablePointerLocking(event) {
+            if(par.camera.locked) {
+                let canvas = event.target;
+                
+                canvas.requestPointerLock = canvas.requestPointerLock ||
+                    canvas.mozRequestPointerLock ||
+                    canvas.webkitRequestPointerLock;
+                // Ask the browser to lock the pointer
+                                                                
+                canvas.requestPointerLock();
+            }
+        }
+
+        function lockChange(e) {            
+            par = raytracerParams.getParams();
+            par.camera.locked = !par.camera.locked;
+        }
+
+        function initFractalGPU(raytracerParams) {
+            params = raytracerParams.getParams();
+            let pxWidth = params.screen.pxWidth;
+            let pxHeight = params.screen.pxHeight;
+            let canvas = document.getElementById("myCanvas");
+            if(canvas) { canvas.remove(); }
+            canvas = document.createElement('canvas');
+            canvas.id = 'myCanvas';
+            document.body.querySelector('.panel').appendChild(canvas);
+
+            //canvas.width = pxWidth;
+            //canvas.height = pxHeight;
+
+            canvas.addEventListener('click', canvasOnClick_enablePointerLocking);
+            document.addEventListener('pointerlockchange', lockChange, false);
+            
+            const gl = canvas.getContext('webgl2', { premultipliedAlpha: false });
+            const gpu = new GPU({ canvas, webGl: gl });
+            
+            const raytracer = gpu.createKernel(kernelMarchingRays)
+                .setConstants({ pxWidth, pxHeight })
+                .setOutput([pxWidth, pxHeight])    
+                .setGraphical(true)
+                .setLoopMaxIterations(10000)
+                .setFunctions([                                        
+                    distScene,                    
+                    sdPlane,                     
+                    mandelbulb,
+                ]);
+
+            return raytracer;
+        }
+
+        // ---------------------------------------------------- 
+        //
+        // UX
+        //
+        // ---------------------------------------------------- 
+
+        function initGui() {               
+            raytracer.getCanvas().addEventListener('wheel',(event) => { mouseWheel(event); return false; }, false);
+            raytracer.getCanvas().addEventListener('mousemove',(event) => { mouseMove(event); return false; }, false);            
+            document.onkeypress = (e) => { 
+                if(e.key == "w") moveCamera(1,0,0); 
+                if(e.key == "s") moveCamera(-1,0,0); 
+                if(e.key == "a") moveCamera(0,-1,0); 
+                if(e.key == "d") moveCamera(0,1,0); 
+                if(e.key == "e") moveCamera(0,0,1); 
+                if(e.key == "c") moveCamera(0,0,-1); 
+
+                if(e.key == "+") mouseWheel({deltaY: -10}); 
+                if(e.key == "-") mouseWheel({deltaY: 10}); 
+            };
+            chceckScreenResize();
+
+            refresh();
+            
+        }
+
+        function moveCamera(forwardBackward, leftRight, upDown) {
+            par = raytracerParams.getParams();
+            par.camera.locked 
+            console.log(forwardBackward, leftRight, upDown)
+            raytracerParams.moveCamera(0,0, forwardBackward, leftRight, upDown);
+            refresh();
+        }
+        
+        function refresh() 
+        {            
+            par = raytracerParams.getParams();
+            r = raytracerParams.calcRayBase(); // {E, P11, Bn, Vn};
+            
+            raytracer(
+                par.ray.calcLight, par.ray.rayMaxSteps, par.ray.rayMinDist,
+                r.E.x, r.E.y, r.E.z, 
+                r.P11.x, r.P11.y, r.P11.z, 
+                r.Bn.x, r.Bn.y, r.Bn.z, 
+                r.Vn.x, r.Vn.y, r.Vn.z, 
+                par.light.x, par.light.y, par.light.z, 
+                ); 
+        }
+
+        function mouseMove(e) {  
+            par = raytracerParams.getParams();
+            
+            //let canvas = document.getElementById("myCanvas");  
+            //console.log('clock',canvas.requestPointerLock);
+            
+            //raytracerParams.moveCamera(e.offsetX/100, e.offsetY/100); // yaw = left/right, pitch = up/down
+            if(!par.camera.locked) {
+                raytracerParams.moveCamera(e.movementX, e.movementY, 0,0,0); // yaw = left/right, pitch = up/down
+                refresh();
+            }
+        }
+            
+        function mouseWheel(e) {                        
+            tmpMouseWhellY += e.deltaY;
+            tmpMouseWhellY = tmpMouseWhellY>-2000 ? -2000 : tmpMouseWhellY;
+            tmpMouseWhellY = tmpMouseWhellY<-8000 ? -8000 : tmpMouseWhellY;
+            n = Math.pow(10, tmpMouseWhellY/1000);
+            
+            console.log(tmpMouseWhellY);
+            par.ray.rayMinDist = n;   
+            par.camera.speed = n*10;
+            
+            document.querySelector("#rayMinDist").value = Math.floor((-tmpMouseWhellY-2000)/6);
+            refresh();            
+        }
+
+
+
+        function chceckScreenResize() {
+            window.addEventListener("resize",() => {
+                refreshScreenSize();
+            });
+        }
+
+        function refreshScreenSize() {
+            //raytracerParams.setScreenSize(window.innerWidth, window.innerHeight);
+            raytracerParams.setScreenSize(500, 500);
+            raytracer = initFractalGPU(raytracerParams);    
+            refresh();
+        }
+
+        function settingsSetLight(e) {
+            par = raytracerParams.getParams();
+            par.ray.calcLight = 1-par.ray.calcLight;
+            refresh();
+        }
+
+        function settingsRayMinDist(e, direct=false) {
+            
+            let n = ("0." + "0".repeat(e.target.value-1) + "1")*1;   
+            par.ray.rayMinDist = n;   
+            par.camera.speed = n*10;
+            
+            document.querySelector("#rayMinDist").value = e.target.value;
+            refresh();
+            //rayMinDist
+            //par = raytracerParams.getParams();
+        }
+
+        function settingsRayMaxSteps(e) {            
+            par = raytracerParams.getParams();
+            par.ray.rayMaxSteps = e.target.value;   
+            document.querySelector("#rayMaxSteps").value = par.ray.rayMaxSteps;
+            refresh();         
+        }
+
+
+        // ---------------------------------------------------- 
+        //
+        // Main
+        //
+        // ---------------------------------------------------- 
+        let raytracerParams = new RaytracerParams();
+        let tmpMouseWhellY = -3000;
+        refreshScreenSize();
+        //let raytracer = initFractalGPU(raytracerParams);         
+        initGui(raytracerParams);
+
+
+    </script>
+</body>
+</html>
