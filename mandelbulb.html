@@ -225,23 +225,29 @@
             let ppz = 0;
             let distance = 0;
             let hit = 0;
+            let dd= [0,0,0];
+            let hitObjectId = 0; // 0 = no hit
                         
             for (let steps=0 ; steps < MaximumRaySteps; steps++) {
                 ppx = Ex + totalDistance * rnx;
                 ppy = Ey + totalDistance * rny;
                 ppz = Ez + totalDistance * rnz;
 
-                distance = distScene(ppx,ppy,ppz); // --- Distance estimator
-
+                dd = distScene(ppx,ppy,ppz)
+                distance = dd[0]; // --- Distance estimator
+                
                 totalDistance += distance;
                 if (distance < MinimumDistance) {
                     stepsVal = steps;     
-                    hit=1;                   
+                    hit=1;          
+                    hitObjectId = dd[2];         
                     break                  
                 };
                 
             }
 
+            let iterFrac = dd[1];
+            
             let color_r = 0;
             let color_g = 0;
             let color_b = 0;
@@ -250,10 +256,14 @@
             if(calcLight==1) {                                
                 let eps = rayMinDist*10;
                 if(eps>0.00015) { eps = 0.00015; }
-
-                let nx = distScene(ppx + eps, ppy, ppz) - distance; // - distScene(ppx - eps, ppy, ppz);
-                let ny = distScene(ppx, ppy + eps, ppz) - distance; // - distScene(ppx, ppy - eps, ppz);
-                let nz = distScene(ppx, ppy, ppz + eps) - distance; // - distScene(ppx, ppy, ppz - eps); 
+                
+                dd = distScene(ppx + eps, ppy, ppz);
+                let nx = dd[0] - distance; // - distScene(ppx - eps, ppy, ppz);
+                dd = distScene(ppx, ppy + eps, ppz);
+                let ny = dd[0] - distance; // - distScene(ppx, ppy - eps, ppz);
+                dd = distScene(ppx, ppy, ppz + eps);                
+                let nz = dd[0] - distance; // - distScene(ppx, ppy, ppz - eps); 
+                
                 let sn = 1/Math.sqrt(nx*nx + ny*ny + nz*nz);
                 nx = nx * sn;
                 ny = ny * sn;
@@ -267,13 +277,39 @@
                 ly *= sl;
                 lz *= sl;
 
-                
 
+                //let colBcg = hsv2rgb(0.6,1,0.2*(0.4+((i+j))/(1024)));
+                //let colBcg = [j/4024,i/4024,0];
+                let colBcg = [0,0,0];
                 let light = lx * nx + ly*ny + lz*nz;
+                light = (light+1)/2;                
+                //let col = hsv2rgb(((iterFrac*666)%100)/10, 1, light);
+                let col = hsv2rgb(
+                    (ppx+ppy+ppz),
+                    1,
+                    8*light*stepsVal/MaximumRaySteps);
+
                 
-                color_r = Math.max(light,0) + hit*0.2;
-                color_g = light;
-                color_b = light;
+                color_r = col[0]; 
+                color_g = col[1];
+                color_b = col[2];
+
+                if(hitObjectId==0) {
+                    
+                    color_r = colBcg[0];
+                    color_g = colBcg[1];
+                    color_b = colBcg[2];
+                }
+
+                if(hitObjectId==1) {
+                    color_r = 0;
+                    color_g = 1*light;
+                    color_b = 0;
+                }
+
+                //color_r = Math.max(light,0) + hit*0.2;
+                //color_g = light;
+                //color_b = light;
 
             } else {
                 let trace= 2*stepsVal/MaximumRaySteps;
@@ -285,12 +321,63 @@
             this.color(color_r, color_g, color_b ,1);
         }
 
+        // approxmimation - not compatibile with wikipedia conversion
+        // https://jsfiddle.net/9s24uc1o/2/
+        // function hsv2rgb(h,s,v) {
+        //     //h = 3.1415*2*(h%360)/360;
+        //    // h=3.1415*2*h/100; // 100 is from max number of function mandelbulb iterations
+            
+        //     let pi = 3.141592653589;
+        //     h=2*h*pi+pi/2;  // 100 is from max number of function mandelbulb iterations
+        //     let r1 = Math.sin(h);
+        //     let g1 = Math.sin(h + 2*pi/3);
+        //     let b1 = Math.sin(h + 4*pi/3);
+
+        //     let a = 1-s;
+
+        //     let r2 = v*(r1*s + a);
+        //     let g2 = v*(g1*s + a);
+        //     let b2 = v*(b1*s + a);
+
+        //     return [r2,g2,b2]
+        // }
+
+        function hsv2rgb(h,s,v) {
+            //h = 3.1415*2*(h%360)/360;
+           // h=3.1415*2*h/100; // 100 is from max number of function mandelbulb iterations
+            
+            let c = v*s;
+            let k = (h%1)*6;
+            let x = c*(1 - Math.abs(k%2-1));
+            
+            let r=0;
+            let g=0;
+            let b=0;
+            
+            if(k>=0 && k<=1) { r=c; g=x }
+            if(k>1 && k<=2)  { r=x; g=c }
+            if(k>2 && k<=3)  { g=c; b=x }
+            if(k>3 && k<=4)  { g=x; b=c }
+            if(k>4 && k<=5)  { r=x; b=c }
+            if(k>5 && k<=6)  { r=c; b=x }
+            
+            let m = v-c;
+            
+            return [r+m,g+m,b+m]  
+        }
+
         // x,y,z - point on ray (marching)
         function distScene(x,y,z) 
         {                       
             let p = sdPlane(x,y,z, 0,1,0,1);            
-            let s = mandelbulb(x,y,z);                        
-            return Math.min(p,s);
+            let mm = mandelbulb(x,y,z);                        
+            let m = mm[0];
+            let letIter = mm[1];
+            let dis = m; //Math.min(p,m);                        
+            let objId =1; // 1= plane
+            if(dis==m) objId =2; // 2= plane
+            
+            return [ dis, letIter, objId ] ;
         }
 
         function sdPlane(px,py,pz, nx,ny,nz,nw) 
@@ -305,8 +392,9 @@
             let iterations = 100;
             let bailout = 2;
             let power = 8;
+            let j=0;
 
-            for (let i = 0; i < iterations ; i++) {
+            for (let i=0 ; i < iterations ; i++) {                
                 r = Math.sqrt(zx*zx + zy*zy + zz*zz);
                 if (r>bailout) break;
                 
@@ -328,8 +416,10 @@
                 zx+=px;
                 zy+=py;
                 zz+=pz;
+
+                j++;
             }
-            return 0.5*Math.log(r)*r/dr;
+            return [0.5*Math.log(r)*r/dr, j];
         }
 
 
@@ -382,12 +472,12 @@
                 .setOutput([pxWidth, pxHeight])    
                 .setGraphical(true)
                 .setLoopMaxIterations(10000)
-                .setFunctions([                                        
-                    distScene,                    
-                    sdPlane,                     
-                    mandelbulb,
+                .setFunctions([                                                                                
+                    sdPlane,                                                             
                 ]);
-
+            gpu.addFunction(mandelbulb, { returnType: 'Array(2)' });
+            gpu.addFunction(distScene, { returnType: 'Array(3)' });
+            gpu.addFunction(hsv2rgb, { returnType: 'Array(3)' });
             return raytracer;
         }
 
