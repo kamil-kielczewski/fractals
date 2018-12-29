@@ -11,14 +11,16 @@
         .settings { margin-left: 20px; display: flex; flex-direction: column }
         .field { margin-top: 20px; }
         input { border: white; }
+        #myCanvas { cursor: pointer }
     </style>
 </head>
 <body>
     <div class="panel">
         <canvas id="myCanvas" class="viewport" width=500 height=500></canvas>
         
-        <div class="settings">
-            <h1>Real-time 3d fractal in Javascript</h1>
+        <div class="settings">            
+            <h1>Mandelbulb - Real-time 3d fractal<br> in Javascript</h1>
+            <small>Kamil Kiełczewski <a href="http://airavana.net">Airavana</a></small>
             <div class="field">
                 <div>Instruction</div>
                 <div>Click on picture and move mouse around<br>
@@ -37,7 +39,7 @@
 
                 </div>
                 <div>                    
-                    <input id="rayMinDist" type="text" value="3" disabled >
+                    <input id="rayMinDist" type="text" value="" disabled >
                 </div>
             </div>
             <div class="field">
