@@ -28,7 +28,7 @@
             </div>
             <div class="field">
                 <div>Calculate Light</div>
-                <div><input type="checkbox" onclick="settingsSetLight(event)"></div>                
+                <div><input type="checkbox" onclick="settingsSetLight(event)" checked></div>                
             </div>            
             <div class="field">
                 <div>
@@ -67,7 +67,7 @@
         class RaytracerParams {
             constructor() {
                 this.params = {
-                    ray: {rayMaxSteps:512, rayMinDist:0.001, calcLight: 0 },
+                    ray: {rayMaxSteps:512, rayMinDist:0.001, calcLight: 1 },
                     eye:    { x:-1, y:0, z:0 },
                     light:    { x:-10, y:10, z:10 },
                     target:    { x:0, y:0, z:1 },
@@ -247,8 +247,10 @@
             let color_b = 0;
 
             // --- calculate normals and light ---
-            if(calcLight==1) {
-                let eps = 0.00015;
+            if(calcLight==1) {                                
+                let eps = rayMinDist*10;
+                if(eps>0.00015) { eps = 0.00015; }
+
                 let nx = distScene(ppx + eps, ppy, ppz) - distance; // - distScene(ppx - eps, ppy, ppz);
                 let ny = distScene(ppx, ppy + eps, ppz) - distance; // - distScene(ppx, ppy - eps, ppz);
                 let nz = distScene(ppx, ppy, ppz + eps) - distance; // - distScene(ppx, ppy, ppz - eps); 
@@ -469,7 +471,7 @@
 
         function chceckScreenResize() {
             window.addEventListener("resize",() => {
-                refreshScreenSize();
+                //refreshScreenSize();
             });
         }
 
