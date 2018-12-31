@@ -286,10 +286,13 @@
                 let light = lx * nx + ly*ny + lz*nz;
                 light = (light+1)/2;                
                 //let col = hsv2rgb(((iterFrac*666)%100)/10, 1, light);
+                let distLight = -10/Math.log2(rayMinDist);///totalDistance; //1.0/(Math.pow(totalDistance,5));
+                //if(distLight>1) distLight=1;
                 let col = hsv2rgb(
                     (ppx+ppy+ppz),
                     1,
-                    8*light*stepsVal/MaximumRaySteps);
+                    distLight*8*light*stepsVal/MaximumRaySteps
+                    );
 
                 
                 color_r = col[0]; 
