@@ -1,7 +1,7 @@
 # fractals
 Currently Mandelbulb fractal
 
-[Run Mandelbulb!](http://htmlpreview.github.io/?https://github.com/kamil-kielczewski/fractals/blob/master/mandelbulb.html)
+[Run Mandelbulb!](https://kamil-kielczewski.github.io/fractals/mandelbulb.html)
 
 ## Calc Ray
 
