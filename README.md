@@ -21,7 +21,7 @@ pre-calculations
 
 and
 
-<p align="center"><img src="/tex/313b4f9a24c24ee0538079152302936d.svg?invert_in_darkmode&sanitize=true" align=middle width=0.0pt height=0.0pt/></p>
+<p align="center"><img src="/tex/4af5a64a56ce7e9aff3527e527448d9b.svg?invert_in_darkmode&sanitize=true" align=middle width=174.28876739999998pt height=117.32669189999999pt/></p>
 
 Final calculations for each pixel (<img src="/tex/ca20b61a0f91c4fb2deaac14f1920db4.svg?invert_in_darkmode&sanitize=true" align=middle width=48.462788549999985pt height=22.465723500000017pt/> are not used further)
 
