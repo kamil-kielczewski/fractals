@@ -14,8 +14,8 @@ We  need camera (eye) position at point <img src="/tex/d62fbe219457fce60682a162b
 and
 
 <p align="center"><img src="/tex/22a01128f714e2b7e79163b3cd0caf53.svg?invert_in_darkmode&sanitize=true" align=middle width=218.2591158pt height=142.41339255pt/></p>
-
-<p align="center"><img src="/tex/08fc3486eadb2c2170e462fe12764d88.svg?invert_in_darkmode&sanitize=true" align=middle width=110.22836385pt height=41.68947585pt/></p>
+and we get normalized ray wector in as follows
+<p align="center"><img src="/tex/d6da5f8e4ad565a9502ff2214045da9c.svg?invert_in_darkmode&sanitize=true" align=middle width=110.22836385pt height=40.59357059999999pt/></p>
 
 
 
