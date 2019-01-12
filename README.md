@@ -13,7 +13,7 @@ We  need camera (eye) position at point <img src="/tex/d62fbe219457fce60682a162b
 
 and
 
-<p align="center"><img src="/tex/3b0e70a1d2fb8652717804bd0e3af9ca.svg?invert_in_darkmode&sanitize=true" align=middle width=222.8252961pt height=142.41339255pt/></p>
+<p align="center"><img src="/tex/57b8adfcfd706718466c0c69a396fd06.svg?invert_in_darkmode&sanitize=true" align=middle width=222.8252961pt height=142.41339255pt/></p>
 
 
 
