@@ -1,5 +1,5 @@
 # fractals
-Currently Mandelbulb fractal
+Mandelbulb fractal 3D in pure Javascript based on [GPU.JS](https://github.com/gpujs/gpu.js)
 
 [Run Mandelbulb!](https://kamil-kielczewski.github.io/fractals/mandelbulb.html)
 
