@@ -15,7 +15,7 @@ Input parameters:
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
-calculations
+pre-calculations
 
 $$
 \begin{align}
@@ -36,14 +36,15 @@ $$
 p &= \frac{h_x}{k-1}b_n \\ 
 q &= \frac{h_y}{m-1}v_n \\ 
 p_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}v_n \\
-p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
+
 \end{align}
 $$
 
-and we get normalized ray wector (and pixel - not used further) as follows
+Final calculations for each pixel ($p_{ij},P_{ij}$ are not used further)
 
 $$
 \begin{align}
+p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
 P_{ij} &= E + p_{ij} \\
 r_{ij} &= p_{ij}/||p_{ij}|| \\
 \end{align}
