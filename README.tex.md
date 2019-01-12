@@ -17,7 +17,9 @@ b &= v\times t \\
 b_n &= b/||b|| \\
 w_n &= b_n\times t_n \\
 a &= m/k \\
-hx &= 2\tan(x) 
+h_x &= 2\tan(f/4) \\
+h_y &= h_x a \\
+P_{11} &= t_n \frac{hx}{2}b_n \\
 \end{align}
 $$
 
