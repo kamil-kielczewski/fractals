@@ -32,7 +32,7 @@ p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
 \end{align}
 $$
 
-and we get normalized ray wector in as follows
+and we get normalized ray wector as follows
 
 $$
 \begin{align}
@@ -42,9 +42,6 @@ r_{ij} &= p_{ij}/||p_{ij}|| \\
 $$
 
 
-
-
-TODO: develop this documentation
 
 
 
