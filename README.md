@@ -9,6 +9,8 @@ We  need camera (eye) position at point <img src="/tex/d62fbe219457fce60682a162b
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
+calculations
+
 <p align="center"><img src="/tex/baa7ad5fe0e0690223fa5922e588c018.svg?invert_in_darkmode&sanitize=true" align=middle width=113.40948795pt height=163.88124059999998pt/></p>
 
 and
