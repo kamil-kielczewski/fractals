@@ -15,17 +15,17 @@ Input parameters:
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
-calculations
+pre-calculations
 
 <p align="center"><img src="/tex/baa7ad5fe0e0690223fa5922e588c018.svg?invert_in_darkmode&sanitize=true" align=middle width=113.40948795pt height=163.88124059999998pt/></p>
 
 and
 
-<p align="center"><img src="/tex/3490c45ec21b68b35b02022188897c78.svg?invert_in_darkmode&sanitize=true" align=middle width=218.2591158pt height=142.41339255pt/></p>
+<p align="center"><img src="/tex/313b4f9a24c24ee0538079152302936d.svg?invert_in_darkmode&sanitize=true" align=middle width=0.0pt height=0.0pt/></p>
 
-and we get normalized ray wector (and pixel - not used further) as follows
+Final calculations for each pixel (<img src="/tex/ca20b61a0f91c4fb2deaac14f1920db4.svg?invert_in_darkmode&sanitize=true" align=middle width=48.462788549999985pt height=22.465723500000017pt/> are not used further)
 
-<p align="center"><img src="/tex/d6da5f8e4ad565a9502ff2214045da9c.svg?invert_in_darkmode&sanitize=true" align=middle width=110.22836385pt height=40.59357059999999pt/></p>
+<p align="center"><img src="/tex/0307fd9d9b567ad4ec511cdb851d563a.svg?invert_in_darkmode&sanitize=true" align=middle width=218.19249539999998pt height=66.34700985pt/></p>
 
 
 
