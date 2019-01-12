@@ -33,8 +33,10 @@ p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
 $$
 
 $$
+\begin{align}
 r_{ij} &= p_{ij}/||p_{ij}|| \\
 P_{ij} &= E + r_{ij} \\
+\end{align}
 $$
 
 
