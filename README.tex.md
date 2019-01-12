@@ -9,6 +9,8 @@ We  need camera (eye) position at point $E = [Ex,Ey,Ez]$, target point where cam
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
+calculations
+
 $$
 \begin{align}
 t &= T-E \\
