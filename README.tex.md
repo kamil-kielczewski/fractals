@@ -10,7 +10,9 @@ Currently Mandelbulb fractal
 We  need camera (eye) position at point $E = [Ex,Ey,Ez]$, target point where camera looks $T= [Tx,Ty,Tz]$, camera vertical normalized vector (which idicates where is up and were is down)  $v=[vx,vy,vz]$. We also need field of view scalar $f \in [0,360]$ (human eye $~90^\circ$):
 
 $$
-a
+\begin(align)
+t &= T-E\\
+\end(align)
 $$
 
 
