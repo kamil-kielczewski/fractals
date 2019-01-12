@@ -6,8 +6,8 @@ Currently Mandelbulb fractal
 ## Calc Ray
 
 Input parameters: 
-* camera (eye) position at point $E = [Ex,Ey,Ez]$, 
-* target point where camera looks $T= [Tx,Ty,Tz]$, 
+* $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
+* $T= [Tx,Ty,Tz]$ - target point where camera looks  
 * camera vertical normalized vector (which idicates where is up and were is down)  $w=[wx,wy,wz]$ (not shown on picture, usually equal [0,1,0]). 
 * field of view scalar $f \in [0,360]$ (human eye $~90^\circ$)
 * $k$ with number of pixels on screen width 
