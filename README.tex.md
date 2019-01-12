@@ -12,6 +12,7 @@ We  need camera (eye) position at point $E = [Ex,Ey,Ez]$, target point where cam
 $$
 \begin{align}
 t &= T-E \\
+t_n &= t/||t|| \\
 \end{align}
 $$
 
