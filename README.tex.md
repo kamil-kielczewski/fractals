@@ -26,8 +26,8 @@ and
 
 $$
 \begin{align}
-\p &= \frac{h_x}/{k-1}b_n \\ 
-\q &= \frac{h_y}/{m-1}v_n \\ 
+p &= \frac{h_x}{k-1}b_n \\ 
+q &= \frac{h_y}{m-1}v_n \\ 
 P_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}v_n \\
 P_{ij} &= P_{11} + (i-1)p + (j-1)q \\
 \end{align}
