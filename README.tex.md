@@ -16,9 +16,8 @@ t_n &= t/||t|| \\
 b &= v\times t \\
 b_n &= b/||b|| \\
 w_n &= b_n\times t_n \\
-a &= m/k \\
 h_x &= 2\tan(f/4) \\
-h_y &= h_x a \\
+h_y &= h_x m/k \\
 \end{align}
 $$
 
