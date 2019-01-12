@@ -20,6 +20,5 @@ and
 
 TODO: develop this documentation
 
-<p align="center"><img src="/tex/22d4fe0208aa22c3c5849ea93adce208.svg?invert_in_darkmode&sanitize=true" align=middle width=136.2686259pt height=39.452455349999994pt/></p>
 
 
