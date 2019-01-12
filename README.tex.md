@@ -32,7 +32,7 @@ p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
 \end{align}
 $$
 
-and we get normalized ray wector as follows
+and we get normalized ray wector (and pixel - not used further) as follows
 
 $$
 \begin{align}
