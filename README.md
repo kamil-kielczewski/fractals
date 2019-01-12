@@ -15,7 +15,7 @@ and
 
 <p align="center"><img src="/tex/22a01128f714e2b7e79163b3cd0caf53.svg?invert_in_darkmode&sanitize=true" align=middle width=218.2591158pt height=142.41339255pt/></p>
 
-and we get normalized ray wector as follows
+and we get normalized ray wector (and pixel - not used further) as follows
 
 <p align="center"><img src="/tex/d6da5f8e4ad565a9502ff2214045da9c.svg?invert_in_darkmode&sanitize=true" align=middle width=110.22836385pt height=40.59357059999999pt/></p>
 
