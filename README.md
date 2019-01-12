@@ -15,7 +15,7 @@ and
 
 <p align="center"><img src="/tex/22a01128f714e2b7e79163b3cd0caf53.svg?invert_in_darkmode&sanitize=true" align=middle width=218.2591158pt height=142.41339255pt/></p>
 
-<p align="center"><img src="/tex/742bd9cb13818aa707c9da7ade01b008.svg?invert_in_darkmode&sanitize=true" align=middle width=202.4846934pt height=17.031940199999998pt/></p>
+<p align="center"><img src="/tex/08fc3486eadb2c2170e462fe12764d88.svg?invert_in_darkmode&sanitize=true" align=middle width=110.22836385pt height=41.68947585pt/></p>
 
 
 
