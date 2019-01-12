@@ -16,7 +16,6 @@ t_n &= t/||t|| \\
 b &= v\times t \\
 b_n &= b/||b|| \\
 w_n &= b_n\times t_n \\
-
 \end{align}
 $$
 
