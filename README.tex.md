@@ -39,7 +39,7 @@ p_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}v_n \\
 \end{align}
 $$
 
-Final calculations for each pixel ($p_{ij},P_{ij}$ are not used further)
+Final calculations for ray $r_{ij}$ for each pixel (I put $p_{ij},P_{ij}$ for theoretical reason but they will be not used further)
 
 $$
 \begin{align}
