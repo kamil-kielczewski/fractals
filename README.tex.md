@@ -9,7 +9,7 @@ Input parameters:
 * $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
 * $T= [Tx,Ty,Tz]$ - target point where camera looks  
 * $w=[wx,wy,wz]$ - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
-* $f \in [0,360]$ - field of view (slacar value, for human eye ~$\approx 90^\circ$)
+* $f \in [0,360]$ - field of view (slacar value, for human eye $\approx 90^\circ$)
 * $k$ - number of pixels on screen width 
 * $m$ - number of pixels screen in height 
 
