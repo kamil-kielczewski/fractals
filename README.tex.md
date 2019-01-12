@@ -19,7 +19,7 @@ w_n &= b_n\times t_n \\
 a &= m/k \\
 h_x &= 2\tan(f/4) \\
 h_y &= h_x a \\
-P_{11} &= t_n \frac{hx}{2}b_n \\
+P_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}v_n \\
 \end{align}
 $$
 
