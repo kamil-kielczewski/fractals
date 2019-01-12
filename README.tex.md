@@ -7,7 +7,11 @@ Currently Mandelbulb fractal
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
-We  need camera (eye) position $e = [ex,ey,ez]$, target point where camera looks $t= [tx,ty,tz]$, camera vertical normalized vector (which idicates where is up and were is down)  $v=[vx,vy,vz]$. We also need field of view scalar $f \in [0,360]$ (human eye $~90^\circ$)
+We  need camera (eye) position at point $E = [Ex,Ey,Ez]$, target point where camera looks $T= [Tx,Ty,Tz]$, camera vertical normalized vector (which idicates where is up and were is down)  $v=[vx,vy,vz]$. We also need field of view scalar $f \in [0,360]$ (human eye $~90^\circ$):
+
+$$
+a
+$$
 
 
 
