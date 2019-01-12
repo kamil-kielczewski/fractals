@@ -8,10 +8,10 @@ Currently Mandelbulb fractal
 Input parameters: 
 * $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
 * $T= [Tx,Ty,Tz]$ - target point where camera looks  
-* camera vertical normalized vector (which idicates where is up and were is down)  $w=[wx,wy,wz]$ (not shown on picture, usually equal [0,1,0]). 
-* field of view scalar $f \in [0,360]$ (human eye $~90^\circ$)
-* $k$ with number of pixels on screen width 
-* $m$ with number of pixels screen in height 
+* $w=[wx,wy,wz]$ - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
+* $f \in [0,360]$ - field of view (slacar value, for human eye $~90^\circ$)
+* $k$ - number of pixels on screen width 
+* $m$ - number of pixels screen in height 
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
