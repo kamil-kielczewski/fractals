@@ -31,11 +31,11 @@ p_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}w_n \\
 p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
 \end{align}
 $$
-
+and we get normalized ray wector in as follows
 $$
 \begin{align}
+P_{ij} &= E + p_{ij} \\
 r_{ij} &= p_{ij}/||p_{ij}|| \\
-P_{ij} &= E + r_{ij} \\
 \end{align}
 $$
 
