@@ -24,8 +24,8 @@ t_n &= t/||t|| \\
 b &= w\times t \\
 b_n &= b/||b|| \\
 v_n &= b_n\times t_n \\
-h_x &= 2\tan(\theta/4) \\
-h_y &= h_x m/k \\
+g_x &=h_x/2 = \tan(\theta/4) \\
+g_y &=h_y/2 = g_x m/k \\
 \end{align}
 $$
 
@@ -33,9 +33,9 @@ and
 
 $$
 \begin{align}
-p &= \frac{h_x}{k-1}b_n \\ 
-q &= \frac{h_y}{m-1}v_n \\ 
-p_{11} &= t_n - \frac{h_x}{2}b_n +  \frac{h_y}{2}v_n \\
+p &= \frac{2g_x}{k-1}b_n \\ 
+q &= \frac{2g_y}{m-1}v_n \\ 
+p_{11} &= t_n - g_xb_n +  g_yv_n \\
 \end{align}
 $$
 
