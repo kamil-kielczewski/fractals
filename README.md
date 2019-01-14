@@ -17,11 +17,11 @@ Input parameters:
 
 pre-calculations
 
-<p align="center"><img src="/tex/5526a78d867d3ccc70d6852e888c42a6.svg?invert_in_darkmode&sanitize=true" align=middle width=111.76560285pt height=163.88124059999998pt/></p>
+<p align="center"><img src="/tex/6bfa1cf221b24c4965251b19f84cdee0.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
 
 and
 
-<p align="center"><img src="/tex/4af5a64a56ce7e9aff3527e527448d9b.svg?invert_in_darkmode&sanitize=true" align=middle width=174.28876739999998pt height=117.32669189999999pt/></p>
+<p align="center"><img src="/tex/fdcd319210d06a2447316c2a204b7cb3.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
 
 Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (I put <img src="/tex/ca20b61a0f91c4fb2deaac14f1920db4.svg?invert_in_darkmode&sanitize=true" align=middle width=48.462788549999985pt height=22.465723500000017pt/> for theoretical reason but they will be not used further)
 
