@@ -19,7 +19,7 @@ pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb0841
 
 <p align="center"><img src="/tex/6bfa1cf221b24c4965251b19f84cdee0.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
 
-and
+and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
 <p align="center"><img src="/tex/fdcd319210d06a2447316c2a204b7cb3.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
 
