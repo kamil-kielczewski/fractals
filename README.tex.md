@@ -15,7 +15,7 @@ Input parameters:
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
-pre-calculations
+pre-calculations (we can assume that $d=1$ - it doesn't matter siecne $\theta$ determine viewport size)
 
 $$
 \begin{align}
