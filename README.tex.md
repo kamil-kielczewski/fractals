@@ -29,7 +29,7 @@ g_y &=h_y/2 = g_x m/k \\
 \end{align}
 $$
 
-and
+and (notice: $C=E+t_n$)
 
 $$
 \begin{align}
