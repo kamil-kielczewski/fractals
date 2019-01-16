@@ -39,12 +39,11 @@ p_{11} &= t_n - g_xb_n +  g_yv_n \\
 \end{align}
 $$
 
-Final calculations for ray $r_{ij}$ for each pixel (I put $p_{ij},P_{ij}$ for theoretical reason but they will be not used further)
+Final calculations for ray $r_{ij}$ for each pixel (notice: $P_{ij} &= E + p_{ij}$ )
 
 $$
 \begin{align}
 p_{ij} &= p_{11} + (i-1)p + (j-1)q \\
-P_{ij} &= E + p_{ij} \\
 r_{ij} &= p_{ij}/||p_{ij}|| \\
 \end{align}
 $$
