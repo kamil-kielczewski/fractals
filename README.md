@@ -23,9 +23,9 @@ and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkm
 
 <p align="center"><img src="/tex/fdcd319210d06a2447316c2a204b7cb3.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
 
-Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (I put <img src="/tex/ca20b61a0f91c4fb2deaac14f1920db4.svg?invert_in_darkmode&sanitize=true" align=middle width=48.462788549999985pt height=22.465723500000017pt/> for theoretical reason but they will be not used further)
+Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (notice: <img src="/tex/960053e3edfbd4549965e659744804ef.svg?invert_in_darkmode&sanitize=true" align=middle width=96.24790395pt height=22.465723500000017pt/> )
 
-<p align="center"><img src="/tex/0307fd9d9b567ad4ec511cdb851d563a.svg?invert_in_darkmode&sanitize=true" align=middle width=218.19249539999998pt height=66.34700985pt/></p>
+<p align="center"><img src="/tex/7ddc31944b8872363eb9411ab8976073.svg?invert_in_darkmode&sanitize=true" align=middle width=215.909397pt height=41.68947585pt/></p>
 
 
 
