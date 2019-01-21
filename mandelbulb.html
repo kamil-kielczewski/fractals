@@ -139,7 +139,7 @@
                 let m = this.params.screen.pxHeight;
                 let k = this.params.screen.pxWidth;
                 let ar = m/k; // aspect ration
-                let hx = 2*Math.tan(this.params.camera.fov/4);                
+                let hx = Math.tan(this.params.camera.fov/2);                
                 let hy = hx*ar;
 
                 //let C = this.add(E, tn);
@@ -477,10 +477,10 @@
             document.onkeypress = (e) => { 
                 if(e.key == "w") moveCamera(1,0,0); 
                 if(e.key == "s") moveCamera(-1,0,0); 
-                if(e.key == "a") moveCamera(0,-1,0); 
-                if(e.key == "d") moveCamera(0,1,0); 
-                if(e.key == "e") moveCamera(0,0,1); 
-                if(e.key == "c") moveCamera(0,0,-1); 
+                if(e.key == "a") moveCamera(0,1,0); 
+                if(e.key == "d") moveCamera(0,-1,0); 
+                if(e.key == "e") moveCamera(0,0,-1); 
+                if(e.key == "c") moveCamera(0,0,1); 
 
                 if(e.key == "+") mouseWheel({deltaY: -10}); 
                 if(e.key == "-") mouseWheel({deltaY: 10}); 
@@ -533,7 +533,7 @@
             
             //raytracerParams.moveCamera(e.offsetX/100, e.offsetY/100); // yaw = left/right, pitch = up/down
             if(!par.camera.locked) {
-                raytracerParams.moveCamera(e.movementX, e.movementY, 0,0,0); // yaw = left/right, pitch = up/down
+                raytracerParams.moveCamera(-e.movementX, e.movementY, 0,0,0); // yaw = left/right, pitch = up/down
                 refresh();
             }
         }
