@@ -46,9 +46,6 @@ p_{1m} = t_n d - g_xb_n - g_yv_n$$
 $$ p_{ij} = p_{1m} + q_x(i-1) + q_y(j-1)$$
 $$ r_{ij} = \frac{p_{ij}}{||p_{ij}||} $$
 
-**TEST**: above formulas wast tested [here][1] (works in browser)
-
-**SUMMARY**: The above form is convenient to use it in shaders where in shader kernel we perform only final calculation based on prcarculated $q_x,q_y$ and $p_{1m}$
 
 
 
