@@ -40,9 +40,6 @@ and then we calculate shifting vectors <img src="/tex/d97c5c89afb85662f7498de102
 <p align="center"><img src="/tex/251e3f493dba4940017c24fea49272e5.svg?invert_in_darkmode&sanitize=true" align=middle width=235.67744144999998pt height=17.031940199999998pt/></p>
 <p align="center"><img src="/tex/4561437ecc388c74c260300f7f069163.svg?invert_in_darkmode&sanitize=true" align=middle width=80.9965761pt height=34.177354199999996pt/></p>
 
-**TEST**: above formulas wast tested [here][1] (works in browser)
-
-**SUMMARY**: The above form is convenient to use it in shaders where in shader kernel we perform only final calculation based on prcarculated <img src="/tex/d97c5c89afb85662f7498de1024b7cf9.svg?invert_in_darkmode&sanitize=true" align=middle width=37.33838129999999pt height=14.15524440000002pt/> and <img src="/tex/c5abed783b9828eeb8b029191c5c89ae.svg?invert_in_darkmode&sanitize=true" align=middle width=26.487963149999988pt height=14.15524440000002pt/>
 
 
 
