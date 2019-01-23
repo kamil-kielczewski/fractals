@@ -21,7 +21,7 @@ pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb0841
 
 and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
-<p align="center"><img src="/tex/be04d6d9434c27c2d097cad9eb3866dc.svg?invert_in_darkmode&sanitize=true" align=middle width=171.6933207pt height=100.38210435pt/></p>
+<p align="center"><img src="/tex/80a929a56c208bc91c84fe93c3515f13.svg?invert_in_darkmode&sanitize=true" align=middle width=171.6933207pt height=100.38210435pt/></p>
 
 Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (notice: <img src="/tex/960053e3edfbd4549965e659744804ef.svg?invert_in_darkmode&sanitize=true" align=middle width=96.24790395pt height=22.465723500000017pt/> )
 
