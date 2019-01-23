@@ -9,13 +9,12 @@ Input parameters ([left-handed coordinate system](https://en.wikipedia.org/wiki/
 * $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
 * $T= [Tx,Ty,Tz]$ - target point where camera looks  
 * $w=[wx,wy,wz]$ - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
-* $\theta \in [0,360]$ - field of view (slacar value, for human eye $\approx 90^\circ$)
+* $\theta \in [0,\pi)$ - field of view (slacar value, for human eye $\approx 90^\circ$)
 * $k$ - number of pixels on screen width 
 * $m$ - number of pixels screen in height 
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
----
 **IDEA**: lets find position of center of each pixel $P_{ij}$ which allows us to easily find ray which starts at $E$ and go thought that pixel. To do it we find first $P_{1m}$ and find others by move on vievports plane.
 
 **ASSUMPTION**: $d=1$ which simplify calculations but not change the result (because $r_{ij}$ is normalized and viewport size is determined by $k,m$ and $\theta$) 
@@ -50,41 +49,6 @@ $$ r_{ij} = \frac{p_{ij}}{||p_{ij}||} $$
 **TEST**: above formulas wast tested [here][1] (works in browser)
 
 **SUMMARY**: The above form is convenient to use it in shaders where in shader kernel we perform only final calculation based on prcarculated $q_x,q_y$ and $p_{1m}$
----
-
-pre-calculations (we can assume that $d=1$ - it doesn't matter siecne $\theta$ determine viewport size)
-
-$$
-\begin{align}
-t &= T-E \\
-t_n &= t/||t|| \\
-b &= w\times t \\
-b_n &= b/||b|| \\
-v_n &= t_n\times b_n \\
-g_x &=h_x/2 = d \tan(\theta/2) \\
-g_y &=h_y/2 = g_x m/k \\
-\end{align}
-$$
-
-and (notice: $C=E+t_n$)
-
-$$
-\begin{align}
-q_x &= \frac{2g_x}{k-1}b_n \\ 
-q_y &= \frac{2g_y}{m-1}v_n \\ 
-p_{11} &= t_n d - g_xb_n -  g_yv_n \\
-\end{align}
-$$
-
-Final calculations for ray $r_{ij}$ for each pixel (notice: $P_{ij} &= E + p_{ij}$ )
-
-$$
-\begin{align}
-p_{ij} &= p_{11} + q_x(i-1) + q_y(j-1) \\
-r_{ij} &= p_{ij}/||p_{ij}|| \\
-\end{align}
-$$
-
 
 
 
