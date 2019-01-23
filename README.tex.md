@@ -24,7 +24,7 @@ t_n &= t/||t|| \\
 b &= w\times t \\
 b_n &= b/||b|| \\
 v_n &= t_n\times b_n \\
-g_x &=h_x/2 = \tan(\theta/2) \\
+g_x &=h_x/2 = d \tan(\theta/2) \\
 g_y &=h_y/2 = g_x m/k \\
 \end{align}
 $$
@@ -35,7 +35,7 @@ $$
 \begin{align}
 q_x &= \frac{2g_x}{k-1}b_n \\ 
 q_y &= \frac{2g_y}{m-1}v_n \\ 
-p_{11} &= t_n - g_xb_n -  g_yv_n \\
+p_{11} &= d t_n - g_xb_n -  g_yv_n \\
 \end{align}
 $$
 
