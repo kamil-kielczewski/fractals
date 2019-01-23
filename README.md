@@ -21,11 +21,11 @@ pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb0841
 
 and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
-<p align="center"><img src="/tex/fdcd319210d06a2447316c2a204b7cb3.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
+<p align="center"><img src="/tex/1a81163388276e0d1571942428b2eaf5.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
 
 Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (notice: <img src="/tex/960053e3edfbd4549965e659744804ef.svg?invert_in_darkmode&sanitize=true" align=middle width=96.24790395pt height=22.465723500000017pt/> )
 
-<p align="center"><img src="/tex/7ddc31944b8872363eb9411ab8976073.svg?invert_in_darkmode&sanitize=true" align=middle width=215.909397pt height=41.68947585pt/></p>
+<p align="center"><img src="/tex/d5c1ccfaa0b6a695918e7cf281177d47.svg?invert_in_darkmode&sanitize=true" align=middle width=230.56511774999998pt height=41.68947585pt/></p>
 
 
 
