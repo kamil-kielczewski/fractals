@@ -10,8 +10,10 @@
         .panel { display: flex; flex-direction: row-reverse; color: white }
         .settings { margin-left: 20px; display: flex; flex-direction: column }
         .field { margin-top: 20px; }
+        .keys { color: #666; }
         input { border: white; }
         #myCanvas { cursor: pointer }
+        #rayMinDist { background: black; color: #666;}
     </style>
 </head>
 <body>
@@ -23,8 +25,8 @@
             <small>Kamil Kiełczewski <a href="http://airavana.net">Airavana</a></small>
             <div class="field">
                 <div>Instruction</div>
-                <div>Click on picture and move mouse around<br>
-                    A/S/D/W/E/C keys for change view poin position <br>
+                <div>Click on picture and <span class="keys">move mouse</span> around<br>
+                    <span class="keys">A S D W E C</span> keys for change view poin position <br>
                     Push ESC to stop move and unlock mouse
                 </div>
             </div>
@@ -35,11 +37,11 @@
             <div class="field">
                 <div>
                     Level of Details (and camera speed) <br>
-                    Mouse whell or +/- keys
-
+                    <span class="keys">Mouse whell</span> or <span class="keys">+/-</span> keys
+                
                 </div>
                 <div>                    
-                    <input id="rayMinDist" type="text" value="" disabled >
+                    <input id="rayMinDist" type="text" value="166" disabled >
                 </div>
             </div>
             <div class="field">
@@ -141,13 +143,14 @@
                 let gx = Math.tan((2*Math.PI*this.params.camera.fov/360)/2);                
                 let gy = gx*m/k;
                 
-                let P11 = this.add( tn, this.scale(-gx, bn), this.scale(-gy, vn) ) // chnage C to tn (tn= C-E)
+                // P1M is left bottom viewport pixel
+                let P1M = this.add( tn, this.scale(-gx, bn), this.scale(-gy, vn) ) // chnage C to tn (tn= C-E)
 
                 let QX = this.scale(2*gx/(k-1), bn);
                 let QY = this.scale(2*gy/(m-1), vn);
 
-                // Pij = P11 + (i-1)*bnp + (j-1)*vnp
-                return {E, P11, QX, QY};
+                // Pij = P1M + (i-1)*bnp + (j-1)*vnp
+                return {E, P1M, QX, QY};
 
             }
 
@@ -203,13 +206,13 @@
             // ar - aspect ratio
             // k - liczba pixeli widht
             // m - liczba pixeli height
-        let kernelMarchingRays = function(calcLight, rayMaxSteps, rayMinDist, Ex,Ey,Ez, P11x, P11y, P11z, QXx, QXy, QXz, QYx, QYy,QYz, Lx, Ly, Lz) 
+        let kernelMarchingRays = function(calcLight, rayMaxSteps, rayMinDist, Ex,Ey,Ez, P1Mx, P1My, P1Mz, QXx, QXy, QXz, QYx, QYy,QYz, Lx, Ly, Lz) 
         {                            
             let i = this.thread.x;
             let j = this.thread.y;
-            let rx = P11x + QXx*(i-1) + QYx*(j-1);
-            let ry = P11y + QXy*(i-1) + QYy*(j-1);
-            let rz = P11z + QXz*(i-1) + QYz*(j-1);
+            let rx = P1Mx + QXx*(i-1) + QYx*(j-1);
+            let ry = P1My + QXy*(i-1) + QYy*(j-1);
+            let rz = P1Mz + QXz*(i-1) + QYz*(j-1);
 
             let sr = 1/Math.sqrt(rx*rx + ry*ry + rz*rz);
             let rnx = rx*sr;
@@ -508,12 +511,12 @@
             if(!locked) { 
                 locked = true;
                 let par = raytracerParams.getParams();
-                let r = raytracerParams.calcRayBase(); // {E, P11, Bn, Vn};
+                let r = raytracerParams.calcRayBase(); // {E, P1M, Bn, Vn};
                 
                 raytracer(
                     par.ray.calcLight, par.ray.rayMaxSteps, par.ray.rayMinDist,
                     r.E.x, r.E.y, r.E.z, 
-                    r.P11.x, r.P11.y, r.P11.z, 
+                    r.P1M.x, r.P1M.y, r.P1M.z, 
                     r.QX.x, r.QX.y, r.QX.z, 
                     r.QY.x, r.QY.y, r.QY.z, 
                     par.light.x, par.light.y, par.light.z, 
