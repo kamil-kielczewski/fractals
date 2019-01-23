@@ -5,7 +5,7 @@ Mandelbulb fractal 3D in pure Javascript based on [GPU.JS](https://github.com/gp
 
 ## Calc Ray
 
-Input parameters: 
+Input parameters ([left-handed coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#In_three_dimensions)): 
 * <img src="/tex/d62fbe219457fce60682a162b4ecbab4.svg?invert_in_darkmode&sanitize=true" align=middle width=124.40236709999998pt height=24.65753399999998pt/> - camera (eye) position at point 
 * <img src="/tex/aecdc767c97bdaf680b7c57d54dbe69d.svg?invert_in_darkmode&sanitize=true" align=middle width=119.63090204999997pt height=24.65753399999998pt/> - target point where camera looks  
 * <img src="/tex/356dfd3a8b76763cdf8121889b66694a.svg?invert_in_darkmode&sanitize=true" align=middle width=120.91704239999997pt height=24.65753399999998pt/> - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
@@ -17,15 +17,15 @@ Input parameters:
 
 pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb08419237.svg?invert_in_darkmode&sanitize=true" align=middle width=38.69280359999998pt height=22.831056599999986pt/> - it doesn't matter siecne <img src="/tex/27e556cf3caa0673ac49a8f0de3c73ca.svg?invert_in_darkmode&sanitize=true" align=middle width=8.17352744999999pt height=22.831056599999986pt/> determine viewport size)
 
-<p align="center"><img src="/tex/6bfa1cf221b24c4965251b19f84cdee0.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
+<p align="center"><img src="/tex/eacad8882da6be25f2da50d30bca4304.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
 
 and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
-<p align="center"><img src="/tex/fdcd319210d06a2447316c2a204b7cb3.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
+<p align="center"><img src="/tex/1a81163388276e0d1571942428b2eaf5.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
 
 Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (notice: <img src="/tex/960053e3edfbd4549965e659744804ef.svg?invert_in_darkmode&sanitize=true" align=middle width=96.24790395pt height=22.465723500000017pt/> )
 
-<p align="center"><img src="/tex/7ddc31944b8872363eb9411ab8976073.svg?invert_in_darkmode&sanitize=true" align=middle width=215.909397pt height=41.68947585pt/></p>
+<p align="center"><img src="/tex/d5c1ccfaa0b6a695918e7cf281177d47.svg?invert_in_darkmode&sanitize=true" align=middle width=230.56511774999998pt height=41.68947585pt/></p>
 
 
 
