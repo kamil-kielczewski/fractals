@@ -143,11 +143,11 @@
                 
                 let P11 = this.add( tn, this.scale(-gx, bn), this.scale(-gy, vn) ) // chnage C to tn (tn= C-E)
 
-                let Bn = this.scale(2*gx/(k-1), bn);
-                let Vn = this.scale(2*gy/(m-1), vn);
+                let QX = this.scale(2*gx/(k-1), bn);
+                let QY = this.scale(2*gy/(m-1), vn);
 
                 // Pij = P11 + (i-1)*bnp + (j-1)*vnp
-                return {E, P11, Bn, Vn};
+                return {E, P11, QX, QY};
 
             }
 
@@ -203,13 +203,13 @@
             // ar - aspect ratio
             // k - liczba pixeli widht
             // m - liczba pixeli height
-        let kernelMarchingRays = function(calcLight, rayMaxSteps, rayMinDist, Ex,Ey,Ez, P11x, P11y, P11z, Bnx, Bny, Bnz, Vnx,Vny,Vnz, Lx, Ly, Lz) 
+        let kernelMarchingRays = function(calcLight, rayMaxSteps, rayMinDist, Ex,Ey,Ez, P11x, P11y, P11z, QXx, QXy, QXz, QYx, QYy,QYz, Lx, Ly, Lz) 
         {                            
             let i = this.thread.x;
             let j = this.thread.y;
-            let rx = P11x + Bnx*(i-1) + Vnx*(j-1);
-            let ry = P11y + Bny*(i-1) + Vny*(j-1);
-            let rz = P11z + Bnz*(i-1) + Vnz*(j-1);
+            let rx = P11x + QXx*(i-1) + QYx*(j-1);
+            let ry = P11y + QXy*(i-1) + QYy*(j-1);
+            let rz = P11z + QXz*(i-1) + QYz*(j-1);
 
             let sr = 1/Math.sqrt(rx*rx + ry*ry + rz*rz);
             let rnx = rx*sr;
@@ -514,8 +514,8 @@
                     par.ray.calcLight, par.ray.rayMaxSteps, par.ray.rayMinDist,
                     r.E.x, r.E.y, r.E.z, 
                     r.P11.x, r.P11.y, r.P11.z, 
-                    r.Bn.x, r.Bn.y, r.Bn.z, 
-                    r.Vn.x, r.Vn.y, r.Vn.z, 
+                    r.QX.x, r.QX.y, r.QX.z, 
+                    r.QY.x, r.QY.y, r.QY.z, 
                     par.light.x, par.light.y, par.light.z, 
                 );                                       
             }
