@@ -23,8 +23,8 @@ t &= T-E \\
 t_n &= t/||t|| \\
 b &= w\times t \\
 b_n &= b/||b|| \\
-v_n &= b_n\times t_n \\
-g_x &=h_x/2 = \tan(\theta/4) \\
+v_n &= t_n\times b_n \\
+g_x &=h_x/2 = \tan(\theta/2) \\
 g_y &=h_y/2 = g_x m/k \\
 \end{align}
 $$
