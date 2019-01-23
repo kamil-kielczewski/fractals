@@ -70,12 +70,12 @@
             constructor() {
                 this.params = {
                     ray: {rayMaxSteps:512, rayMinDist:0.001, calcLight: 1 },
-                    eye:    { x:-1, y:0, z:0 },
+                    eye:    { x:0, y:1, z:0 },
                     light:    { x:-10, y:10, z:10 },
                     target:    { x:0, y:0, z:1 },
                     vertical: { x:0, y:1, z: 0}, // wektor pionu
                     screen: { pxWidth: 0, pxHeight: 0 },     
-                    camera: { yaw: 0, pitch: 0, speed: 0.01, rotateSpeed: 0.01, fov: 180, locked: true }               
+                    camera: { yaw: 0, pitch: 0, speed: 0.01, rotateSpeed: 0.01, fov: 90, locked: true }               
                 }
             }
 
@@ -127,27 +127,24 @@
             calcRayBase() {
                 let E = this.params.eye;
                 let T = this.params.target;
-                let V = this.params.vertical;
+                let w = this.params.vertical;
 
-                let t = this.sub(T,E);
+                let t = this.sub(T,E); // = viewport center
                 let tn = this.norm(t);
 
-                let b = this.cross(V, t);
+                let b = this.cross(w, t);
                 let bn = this.norm(b);
-                let vn = this.cross(bn, tn);
+                let vn = this.cross(tn,bn);
 
                 let m = this.params.screen.pxHeight;
-                let k = this.params.screen.pxWidth;
-                let ar = m/k; // aspect ration
-                let hx = Math.tan(this.params.camera.fov/2);                
-                let hy = hx*ar;
+                let k = this.params.screen.pxWidth;                
+                let gx = Math.tan((2*Math.PI*this.params.camera.fov/360)/2);                
+                let gy = gx*m/k;
+                
+                let P11 = this.add( tn, this.scale(-gx, bn), this.scale(-gy, vn) ) // chnage C to tn (tn= C-E)
 
-                //let C = this.add(E, tn);
-                //let P11 = this.add( this.sub(C, this.scale((hx/2), bn)), this.scale(hy/2, vn))
-                let P11 = this.add( this.sub(tn, this.scale((hx/2), bn)), this.scale(hy/2, vn)) // chnage C to tn (tn= C-E)
-
-                let Bn = this.scale(hx/(k-1), bn);
-                let Vn = this.scale(-hy/(m-1), vn);
+                let Bn = this.scale(2*gx/(k-1), bn);
+                let Vn = this.scale(2*gy/(m-1), vn);
 
                 // Pij = P11 + (i-1)*bnp + (j-1)*vnp
                 return {E, P11, Bn, Vn};
@@ -173,12 +170,13 @@
                 return a;
             }
 
-            add(a,b) {
-                return { 
-                    x: a.x + b.x,
-                    y: a.y + b.y,
-                    z: a.z + b.z
-                }
+            add(...vs) {
+                return vs.reduce( (a,b) => ({ x: a.x+b.x, y: a.y+b.y, z: a.z+b.z }) )
+                // return { 
+                //     x: a.x + b.x,
+                //     y: a.y + b.y,
+                //     z: a.z + b.z
+                // }
                 
             }
 
@@ -353,11 +351,12 @@
         // x,y,z - point on ray (marching)
         function distScene(x,y,z) 
         {                       
-            let p = sdPlane(x,y,z, 0,1,0,1);            
+            //let p = sdPlane(x,y,z, 0,1,0,1);            
             let mm = mandelbulb(x,y,z);                        
             let m = mm[0];
             let letIter = mm[1];
             let dis = m; //Math.min(p,m);                        
+            //let dis = Math.min(p,m);                        
             let objId =1; // 1= plane
             if(dis==m) objId =2; // 2= plane
             
@@ -477,10 +476,10 @@
             document.onkeypress = (e) => { 
                 if(e.key == "w") moveCamera(1,0,0); 
                 if(e.key == "s") moveCamera(-1,0,0); 
-                if(e.key == "a") moveCamera(0,1,0); 
-                if(e.key == "d") moveCamera(0,-1,0); 
-                if(e.key == "e") moveCamera(0,0,-1); 
-                if(e.key == "c") moveCamera(0,0,1); 
+                if(e.key == "a") moveCamera(0,-1,0); 
+                if(e.key == "d") moveCamera(0,1,0); 
+                if(e.key == "e") moveCamera(0,0,1); 
+                if(e.key == "c") moveCamera(0,0,-1); 
 
                 if(e.key == "+") mouseWheel({deltaY: -10}); 
                 if(e.key == "-") mouseWheel({deltaY: 10}); 
@@ -533,7 +532,7 @@
             
             //raytracerParams.moveCamera(e.offsetX/100, e.offsetY/100); // yaw = left/right, pitch = up/down
             if(!par.camera.locked) {
-                raytracerParams.moveCamera(-e.movementX, e.movementY, 0,0,0); // yaw = left/right, pitch = up/down
+                raytracerParams.moveCamera(e.movementX, -e.movementY, 0,0,0); // yaw = left/right, pitch = up/down
                 refresh();
             }
         }
