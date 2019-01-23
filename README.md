@@ -17,7 +17,7 @@ Input parameters:
 
 pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb08419237.svg?invert_in_darkmode&sanitize=true" align=middle width=38.69280359999998pt height=22.831056599999986pt/> - it doesn't matter siecne <img src="/tex/27e556cf3caa0673ac49a8f0de3c73ca.svg?invert_in_darkmode&sanitize=true" align=middle width=8.17352744999999pt height=22.831056599999986pt/> determine viewport size)
 
-<p align="center"><img src="/tex/6bfa1cf221b24c4965251b19f84cdee0.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
+<p align="center"><img src="/tex/eacad8882da6be25f2da50d30bca4304.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
 
 and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
