@@ -5,7 +5,7 @@ Mandelbulb fractal 3D in pure Javascript based on [GPU.JS](https://github.com/gp
 
 ## Calc Ray
 
-Input parameters: 
+Input parameters ([left-handed coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#In_three_dimensions)): 
 * $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
 * $T= [Tx,Ty,Tz]$ - target point where camera looks  
 * $w=[wx,wy,wz]$ - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
