@@ -17,11 +17,11 @@ Input parameters ([left-handed coordinate system](https://en.wikipedia.org/wiki/
 
 pre-calculations (we can assume that <img src="/tex/4cfe92e893a7541f68473ecb08419237.svg?invert_in_darkmode&sanitize=true" align=middle width=38.69280359999998pt height=22.831056599999986pt/> - it doesn't matter siecne <img src="/tex/27e556cf3caa0673ac49a8f0de3c73ca.svg?invert_in_darkmode&sanitize=true" align=middle width=8.17352744999999pt height=22.831056599999986pt/> determine viewport size)
 
-<p align="center"><img src="/tex/eacad8882da6be25f2da50d30bca4304.svg?invert_in_darkmode&sanitize=true" align=middle width=156.07879155pt height=163.88124059999998pt/></p>
+<p align="center"><img src="/tex/ade328c593ca6305adbaae0f25d228ae.svg?invert_in_darkmode&sanitize=true" align=middle width=167.37441435pt height=163.88124059999998pt/></p>
 
 and (notice: <img src="/tex/36727b27e5df89ce2c1697714217ed85.svg?invert_in_darkmode&sanitize=true" align=middle width=82.07775674999999pt height=22.465723500000017pt/>)
 
-<p align="center"><img src="/tex/1a81163388276e0d1571942428b2eaf5.svg?invert_in_darkmode&sanitize=true" align=middle width=163.13735625pt height=100.38210435pt/></p>
+<p align="center"><img src="/tex/80a929a56c208bc91c84fe93c3515f13.svg?invert_in_darkmode&sanitize=true" align=middle width=171.6933207pt height=100.38210435pt/></p>
 
 Final calculations for ray <img src="/tex/92e0822b1528090efc2435d2ae60c9ee.svg?invert_in_darkmode&sanitize=true" align=middle width=18.17172884999999pt height=14.15524440000002pt/> for each pixel (notice: <img src="/tex/960053e3edfbd4549965e659744804ef.svg?invert_in_darkmode&sanitize=true" align=middle width=96.24790395pt height=22.465723500000017pt/> )
 
