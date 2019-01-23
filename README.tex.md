@@ -35,7 +35,7 @@ $$
 \begin{align}
 q_x &= \frac{2g_x}{k-1}b_n \\ 
 q_y &= \frac{2g_y}{m-1}v_n \\ 
-p_{11} &= d t_n - g_xb_n -  g_yv_n \\
+p_{11} &= t_n d - g_xb_n -  g_yv_n \\
 \end{align}
 $$
 
