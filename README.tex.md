@@ -47,6 +47,7 @@ $$ p_{ij} = p_{1m} + q_x(i-1) + q_y(j-1)$$
 $$ r_{ij} = \frac{p_{ij}}{||p_{ij}||} $$
 
 
+## Ray marching (calc ray color)
 
 
 
