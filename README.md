@@ -41,6 +41,7 @@ and then we calculate shifting vectors <img src="/tex/d97c5c89afb85662f7498de102
 <p align="center"><img src="/tex/4561437ecc388c74c260300f7f069163.svg?invert_in_darkmode&sanitize=true" align=middle width=80.9965761pt height=34.177354199999996pt/></p>
 
 
+## Ray marching (calc ray color)
 
 
 
