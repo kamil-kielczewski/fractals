@@ -47,7 +47,19 @@ $$ p_{ij} = p_{1m} + q_x(i-1) + q_y(j-1)$$
 $$ r_{ij} = \frac{p_{ij}}{||p_{ij}||} $$
 
 
-## Ray marching (calc ray color)
+## Ray marching
 
+Ray marching is used to calculate color/light of each ray (pixel). To do it we use <b>distance function</b> which is central concept of raymarching technique. Distance function is very simple - 
 
+Step 1. 
 
+<p align="center">
+  <img width="200px" src="/tex/rayStep1.png" align=middle />
+  <img width="200px" src="/tex/rayStep2.png" align=middle />
+  <img width="200px" src="/tex/rayStep3.png" align=middle />
+  <img width="200px" src="/tex/rayStep4.png" align=middle />
+</p>
+
+<p align="center"><img src="/tex/rayMarching.gif" align=middle /></p>
+
+The source of above 4 pictures and animation cames from [JAmstrong](https://medium.com/@ArmstrongCS/raymarching-1-the-basics-d6f3e70fb430) article.
