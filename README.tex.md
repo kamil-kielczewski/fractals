@@ -62,4 +62,4 @@ Step 1.
 
 <p align="center"><img src="/tex/rayMarching.gif" align=middle /></p>
 
-The source of above 4 pictures and animation cames from [JAmstrong](https://medium.com/@ArmstrongCS/raymarching-1-the-basics-d6f3e70fb430) article.
+The source of above four pictures and animation cames from [JAmstrong](https://medium.com/@ArmstrongCS/raymarching-1-the-basics-d6f3e70fb430) article.
