@@ -43,5 +43,5 @@ and then we calculate shifting vectors <img src="/tex/d97c5c89afb85662f7498de102
 
 ## Ray marching (calc ray color)
 
-
+https://www.youtube.com/watch?v=Cp5WWtMoeKg
 
