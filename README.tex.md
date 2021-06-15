@@ -9,46 +9,59 @@ Input parameters ([left-handed coordinate system](https://en.wikipedia.org/wiki/
 * $E = [Ex,Ey,Ez]$ - camera (eye) position at point 
 * $T= [Tx,Ty,Tz]$ - target point where camera looks  
 * $w=[wx,wy,wz]$ - camera vertical normalized vector which idicates where is up and were is down (not shown on picture, usually equal [0,1,0]). 
-* $\theta \in [0,360]$ - field of view (slacar value, for human eye $\approx 90^\circ$)
+* $\theta \in [0,\pi)$ - field of view (slacar value, for human eye $\approx 90^\circ$)
 * $k$ - number of pixels on screen width 
 * $m$ - number of pixels screen in height 
 
 <p align="center"><img src="/tex/raysMatrix.png" align=middle /></p>
 
-pre-calculations (we can assume that $d=1$ - it doesn't matter siecne $\theta$ determine viewport size)
+**IDEA**: lets find position of center of each pixel $P_{ij}$ which allows us to easily find ray which starts at $E$ and go thought that pixel. To do it we find first $P_{1m}$ and find others by move on vievports plane.
 
-$$
-\begin{align}
-t &= T-E \\
-t_n &= t/||t|| \\
-b &= w\times t \\
-b_n &= b/||b|| \\
-v_n &= t_n\times b_n \\
-g_x &=h_x/2 = d \tan(\theta/2) \\
-g_y &=h_y/2 = g_x m/k \\
-\end{align}
-$$
+**ASSUMPTION**: $d=1$ which simplify calculations but not change the result (because $r_{ij}$ is normalized and viewport size is determined by $k,m$ and $\theta$) 
 
-and (notice: $C=E+t_n$)
+**PRECALCULATIONS**: First we calculate normalized vectors $v_n, b_n$ from picutre (which are parallel to viewport plane and give as direction for shifting)
 
-$$
-\begin{align}
-q_x &= \frac{2g_x}{k-1}b_n \\ 
-q_y &= \frac{2g_y}{m-1}v_n \\ 
-p_{11} &= t_n d - g_xb_n -  g_yv_n \\
-\end{align}
+$$t = T-E, \qquad b = w\times t  $$
+
+$$ 
+t_n = \frac{t}{||t||}, \qquad
+b_n = \frac{b}{||b||}, \qquad
+v_n = t_n\times b_n \\ 
 $$
 
-Final calculations for ray $r_{ij}$ for each pixel (notice: $P_{ij} &= E + p_{ij}$ )
+notice: $C=E+t_nd$, then we calculate viewport size divided by 2 and including aspect ratio $\frac{m}{k}$
 
-$$
-\begin{align}
-p_{ij} &= p_{11} + q_x(i-1) + q_y(j-1) \\
-r_{ij} &= p_{ij}/||p_{ij}|| \\
-\end{align}
-$$
+$$g_x=\frac{h_x}{2} =d \tan \frac{\theta}{2}, \qquad  g_y =\frac{h_y}{2} = g_x \frac{m}{k}$$
+
+and then we calculate shifting vectors $q_x,q_y$ on viewport $x,y$ direction and viewport left upper pixel
+
+$$ q_x = \frac{2g_x}{k-1}b_n, \qquad
+q_y = \frac{2g_y}{m-1}v_n, \qquad
+p_{1m} = t_n d - g_xb_n - g_yv_n$$
 
 
 
+**CALCULATIONS**: notice that $P_{ij} = E + p_{ij}$ and ray $R_{ij} = P_{ij} -E = p_{ij}$ so normalized ray $r_{ij}$ is 
 
-x
+$$ p_{ij} = p_{1m} + q_x(i-1) + q_y(j-1)$$
+$$ r_{ij} = \frac{p_{ij}}{||p_{ij}||} $$
+
+
+## Ray marching
+
+Ray marching is used to calculate color/light of each ray (pixel). To do it we use <b>distance function</b> which is central concept of raymarching technique. Distance function is very simple - 
+
+Step 1. 
+
+<p align="center">
+  <img width="200px" src="/tex/rayStep1.png" align=middle />
+  <img width="200px" src="/tex/rayStep2.png" align=middle />
+  <img width="200px" src="/tex/rayStep3.png" align=middle />
+  <img width="200px" src="/tex/rayStep4.png" align=middle />
+</p>
+
+
+<p align="center"><img src="/tex/rayMarching.gif" align=middle /></p>
+
+The source of above four pictures and animation cames from [JAmstrong](https://medium.com/@ArmstrongCS/raymarching-1-the-basics-d6f3e70fb430) article.
+
