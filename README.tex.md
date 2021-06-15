@@ -60,6 +60,8 @@ Step 1.
   <img width="200px" src="/tex/rayStep4.png" align=middle />
 </p>
 
+
 <p align="center"><img src="/tex/rayMarching.gif" align=middle /></p>
 
 The source of above four pictures and animation cames from [JAmstrong](https://medium.com/@ArmstrongCS/raymarching-1-the-basics-d6f3e70fb430) article.
+
